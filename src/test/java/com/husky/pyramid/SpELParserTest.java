@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.husky.pyramid.test.A;
 import com.husky.pyramid.test.B;
 import com.husky.pyramid.test.TestService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.util.concurrent.CountDownLatch;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest()
+@Slf4j
 public class SpELParserTest {
 
 	@Autowired
@@ -33,7 +35,7 @@ public class SpELParserTest {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				System.out.println("序号;" + finalI);
+				log.info("序号;" + finalI);
 				testService.cacheKey("key1");
 			}).start();
 			countDownLatch.countDown();
@@ -52,9 +54,9 @@ public class SpELParserTest {
 	public void testList() {
 		List<Map> maps = testService.cacheKey2(Arrays.asList("str1", "str2"));
 		List<Map> maps1 = testService.cacheKey2(Arrays.asList("str2", "str1"));
-		System.out.println("黑盒返回");
-		System.out.println(JSON.toJSONString(maps));
-		System.out.println(JSON.toJSONString(maps1));
+		log.info("黑盒返回");
+		log.info(JSON.toJSONString(maps));
+		log.info(JSON.toJSONString(maps1));
 	}
 
 	@Test
@@ -74,12 +76,12 @@ public class SpELParserTest {
 	@Test
 	public void testBatchMap() {
 		Map<Integer, String> byIds = testService.getByIds(Arrays.asList(1, 2, 3, 4));
-		System.out.println(JSON.toJSONString(byIds));
+		log.info(JSON.toJSONString(byIds));
 	}
 
 	@Test
 	public void testObj() throws Exception {
-		A a = new A("fuck", "u", Arrays.asList(1,2), new B("fuck", Arrays.asList("fuck", "you")));
+		A a = new A();
 		A a1 = testService.getObject(a);
 		Thread.sleep(2000L);
 		A a2 = testService.getObject(a);
