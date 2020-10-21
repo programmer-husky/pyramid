@@ -1,5 +1,7 @@
 package com.husky.pyramid.test;
 
+import com.husky.pyramid.annotation.PyramidKey;
+
 import java.util.Random;
 
 public class A {
@@ -45,5 +47,10 @@ public class A {
 		if (right + 1 - left >= 0) {
 			System.arraycopy(tmp, left, a, left, right + 1 - left);
 		}
+	}
+
+	@PyramidKey
+	public String key() {
+		return "key";
 	}
 }

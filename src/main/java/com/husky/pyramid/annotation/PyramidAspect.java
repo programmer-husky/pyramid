@@ -36,12 +36,12 @@ public class PyramidAspect {
 	/**
 	 * SpEL表达式解析器
 	 */
-	private ExpressionParser parser = new SpelExpressionParser();
+	private final ExpressionParser parser = new SpelExpressionParser();
 
 	/**
 	 * 参数匹配器
 	 */
-	private LocalVariableTableParameterNameDiscoverer discoverer = new LocalVariableTableParameterNameDiscoverer();
+	private final LocalVariableTableParameterNameDiscoverer discoverer = new LocalVariableTableParameterNameDiscoverer();
 
 	private final PyramidCacheManager pyramidCacheManager;
 
@@ -50,11 +50,11 @@ public class PyramidAspect {
 		this.pyramidCacheManager = pyramidCacheManager;
 	}
 
-	@Pointcut("@annotation(com.meeruu.pyramid.annotation.Pyramid)")
+	@Pointcut("@annotation(com.husky.pyramid.annotation.Pyramid)")
 	public void cachePointcut() {
 	}
 
-	@Pointcut("@annotation(com.meeruu.pyramid.annotation.Del)")
+	@Pointcut("@annotation(com.husky.pyramid.annotation.Del)")
 	public void clearPointcut() {
 	}
 
