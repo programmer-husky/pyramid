@@ -6,7 +6,6 @@ import lombok.NonNull;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 
 /**
@@ -62,17 +61,5 @@ public interface CacheSupport {
 	 * @return	缓存值的集合
 	 */
 	Map<String, Object> batchGetCache(Set<String> set);
-
-	/**
-	 * 雪崩时间处理
-	 */
-	default void avalancheSolution(PyramidModel pyramidModel) {
-		long redisExpiration = pyramidModel.getRedisExpiration();
-		if (pyramidModel.isAvalanche() && redisExpiration > 0) {
-			Long min = Math.min(10, Math.max(1, redisExpiration / 10));
-			Random random = new Random();
-			pyramidModel.setRedisExpiration(redisExpiration + random.nextInt(min.intValue()));
-		}
-	}
 
 }

@@ -2,13 +2,13 @@ package com.husky.pyramid.cache;
 
 import com.alibaba.fastjson.JSON;
 import com.husky.pyramid.annotation.DelModel;
+import com.husky.pyramid.annotation.PyramidKey;
+import com.husky.pyramid.annotation.PyramidModel;
 import com.husky.pyramid.config.DistributedProperties;
 import com.husky.pyramid.config.LocalProperties;
 import com.husky.pyramid.enums.ChannelTypeEnum;
 import com.husky.pyramid.event.RedisMessage;
 import com.husky.pyramid.event.RedisMessagePublisher;
-import com.husky.pyramid.annotation.PyramidKey;
-import com.husky.pyramid.annotation.PyramidModel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +29,11 @@ import java.util.stream.Collectors;
 
 /**
  * 二级缓存管理器
+ *
+ * <p>
+ * 		{@link CacheSupport} 中只有各类缓存本身的操作封装
+ * 		包含雪崩、穿透解决能力在此处实现
+ * </p>
  * @author dengweichang
  */
 @SuppressWarnings({"unchecked", "unused"})
@@ -274,6 +279,7 @@ public class PyramidCacheManager implements CacheManager, InitializingBean {
 		if (pyramid.getNativeExpiration() == 0) {
 			pyramid.setNativeExpiration(expiration);
 		}
+		avalancheSolution(pyramid);
 		if (!pyramid.isCollection()) {
 			return getCache(pyramidKey(pyramid.getCacheName(), String.valueOf(pyramid.getKey())), function, args, pyramid, false);
 		} else {
