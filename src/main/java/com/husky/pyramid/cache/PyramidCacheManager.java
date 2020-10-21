@@ -107,6 +107,65 @@ public class PyramidCacheManager implements CacheManager, InitializingBean {
 
 
 	/**
+	 * 通用的获取缓存的方法
+	 *
+	 * @param pyramid  注解附带的值
+	 * @param function 获取不到缓存时的操作
+	 * @param args     {@link org.aspectj.lang.ProceedingJoinPoint#getArgs()}
+	 * @return Object
+	 */
+	@Override
+	public Object generalCache(PyramidModel pyramid, Function<Object[], Object> function, Object[] args) {
+		if (pyramid.getRedisExpiration() == 0) {
+			pyramid.setRedisExpiration(expiration);
+		}
+		if (pyramid.getNativeExpiration() == 0) {
+			pyramid.setNativeExpiration(expiration);
+		}
+		avalancheSolution(pyramid);
+		if (!pyramid.isCollection()) {
+			return getCache(pyramidKey(pyramid.getCacheName(), String.valueOf(pyramid.getKey())), function, args, pyramid, false);
+		} else {
+			Collection<Object> keyConnection = (Collection<Object>) pyramid.getKey();
+			Set<String> set = pyramidKey(pyramid.getCacheName(), keyConnection);
+			Map<String, Object> map = batchGetCache(new HashSet<>(set), pyramid, function, args, false);
+			List<Object> list = new ArrayList(set.size());
+			set.forEach(key -> {
+				if (Objects.nonNull(map.get(key))) {
+					list.add(map.get(key));
+				}
+			});
+			return list;
+		}
+	}
+
+	/**
+	 * 删除缓存
+	 *  @param delModel 注解附带的值
+	 * @param publish 是否发送通知
+	 */
+	@Override
+	public void generalClear(DelModel delModel, boolean publish) {
+		log.info("invoke general clear -{}", JSON.toJSONString(delModel));
+		List<String> keys = new ArrayList<>();
+		if (!delModel.isCollection()) {
+			String key = String.valueOf(delModel.getKey());
+			clear(pyramidKey(delModel.getCacheName(), String.valueOf(delModel.getKey())), publish);
+			keys.add(key);
+		} else {
+			Collection<String> key = (Collection<String>) delModel.getKey();
+			batchClear(key.stream().map(item -> pyramidKey(delModel.getCacheName(), item)).collect(Collectors.toList()), publish);
+			keys.addAll(key);
+		}
+		if (publish) {
+			keys.forEach(key -> RedisMessagePublisher.publish(redisTemplate,
+					new RedisMessage(ChannelTypeEnum.DELETE, delModel.getCacheName(), key)));
+		}
+	}
+
+
+
+	/**
 	 * 获取单个缓存
 	 *
 	 * @param key  缓存唯一标记
@@ -262,65 +321,6 @@ public class PyramidCacheManager implements CacheManager, InitializingBean {
 		log.info("批量缓存返回值-{}", JSON.toJSONString(resultMap));
 		return resultMap;
 	}
-
-	/**
-	 * 通用的获取缓存的方法
-	 *
-	 * @param pyramid  注解附带的值
-	 * @param function 获取不到缓存时的操作
-	 * @param args     {@link org.aspectj.lang.ProceedingJoinPoint#getArgs()}
-	 * @return Object
-	 */
-	@Override
-	public Object generalCache(PyramidModel pyramid, Function<Object[], Object> function, Object[] args) {
-		if (pyramid.getRedisExpiration() == 0) {
-			pyramid.setRedisExpiration(expiration);
-		}
-		if (pyramid.getNativeExpiration() == 0) {
-			pyramid.setNativeExpiration(expiration);
-		}
-		avalancheSolution(pyramid);
-		if (!pyramid.isCollection()) {
-			return getCache(pyramidKey(pyramid.getCacheName(), String.valueOf(pyramid.getKey())), function, args, pyramid, false);
-		} else {
-			Collection<Object> keyConnection = (Collection<Object>) pyramid.getKey();
-			Set<String> set = pyramidKey(pyramid.getCacheName(), keyConnection);
-			Map<String, Object> map = batchGetCache(new HashSet<>(set), pyramid, function, args, false);
-			List<Object> list = new ArrayList(set.size());
-			set.forEach(key -> {
-				if (Objects.nonNull(map.get(key))) {
-					list.add(map.get(key));
-				}
-			});
-			return list;
-		}
-	}
-
-	/**
-	 * 删除缓存
-	 *  @param delModel 注解附带的值
-	 * @param publish 是否发送通知
-	 */
-	@Override
-	public void generalClear(DelModel delModel, boolean publish) {
-		log.info("invoke general clear -{}", JSON.toJSONString(delModel));
-		List<String> keys = new ArrayList<>();
-		if (!delModel.isCollection()) {
-			String key = String.valueOf(delModel.getKey());
-			clear(pyramidKey(delModel.getCacheName(), String.valueOf(delModel.getKey())), publish);
-			keys.add(key);
-		} else {
-			Collection<String> key = (Collection<String>) delModel.getKey();
-			batchClear(key.stream().map(item -> pyramidKey(delModel.getCacheName(), item)).collect(Collectors.toList()), publish);
-			keys.addAll(key);
-		}
-		if (publish) {
-			keys.forEach(key -> RedisMessagePublisher.publish(redisTemplate,
-					new RedisMessage(ChannelTypeEnum.DELETE, delModel.getCacheName(), key)));
-		}
-	}
-
-
 
 	private String pyramidKey(String cacheName, String key) {
 		if (StringUtils.isEmpty(key)) {
