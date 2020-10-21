@@ -62,7 +62,12 @@ public class PyramidModel {
 	 */
 	long refreshTime;
 
-	public PyramidModel(String cacheName, Object key, boolean collection, int collectionArgsIndex, boolean onlyLocal, boolean onlyDistributed,  long redisExpiration, long nativeExpiration, long refreshTime) {
+	/**
+	 * 是否需要考虑雪崩
+	 */
+	boolean avalanche;
+
+	public PyramidModel(String cacheName, Object key, boolean collection, int collectionArgsIndex, boolean onlyLocal, boolean onlyDistributed, long redisExpiration, long nativeExpiration, long refreshTime, boolean avalanche) {
 		this.cacheName = cacheName;
 		this.key = key;
 		this.collection = collection;
@@ -75,5 +80,6 @@ public class PyramidModel {
 		this.redisExpiration = redisExpiration;
 		this.nativeExpiration = nativeExpiration;
 		this.refreshTime = refreshTime;
+		this.avalanche = avalanche;
 	}
 }

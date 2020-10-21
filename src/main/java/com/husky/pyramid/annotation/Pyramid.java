@@ -76,4 +76,9 @@ public @interface Pyramid {
 	 * @return	seconds
 	 */
 	long refreshTime() default -1;
+
+	/**
+	 * 是否需要考虑雪崩
+	 */
+	boolean avalanche() default false;
 }

@@ -108,7 +108,7 @@ public class PyramidAspect {
 		}
 		return new PyramidModel(annotation.cacheName(), key, annotation.collection(), annotation.collectionArgsIndex(),
 				annotation.onlyLocal(), annotation.onlyDistributed(),
-				redisExpiration, annotation.nativeExpiration(), annotation.refreshTime());
+				redisExpiration, annotation.nativeExpiration(), annotation.refreshTime(), annotation.avalanche());
 	}
 
 	/**

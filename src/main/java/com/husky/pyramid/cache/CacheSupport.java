@@ -1,10 +1,12 @@
 package com.husky.pyramid.cache;
 
+import com.husky.pyramid.annotation.Pyramid;
 import com.husky.pyramid.annotation.PyramidModel;
 import lombok.NonNull;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -13,6 +15,12 @@ import java.util.Set;
  */
 @SuppressWarnings("unused")
 public interface CacheSupport {
+
+	/**
+	 * 雪崩随机增加的最大时间
+	 * 时间单位要与 {@link Pyramid#redisExpiration()} 匹配
+	 */
+	long avalanche_max = 10L;
 
 	/**
 	 * 缓存单条数据
@@ -54,5 +62,17 @@ public interface CacheSupport {
 	 * @return	缓存值的集合
 	 */
 	Map<String, Object> batchGetCache(Set<String> set);
+
+	/**
+	 * 雪崩时间处理
+	 */
+	default void avalancheSolution(PyramidModel pyramidModel) {
+		long redisExpiration = pyramidModel.getRedisExpiration();
+		if (pyramidModel.isAvalanche() && redisExpiration > 0) {
+			Long min = Math.min(10, Math.max(1, redisExpiration / 10));
+			Random random = new Random();
+			pyramidModel.setRedisExpiration(redisExpiration + random.nextInt(min.intValue()));
+		}
+	}
 
 }
