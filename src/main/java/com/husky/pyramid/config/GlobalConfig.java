@@ -24,13 +24,12 @@ import javax.annotation.Resource;
 /**
  * Pyramid global config
  * @author dengweichang
- * TODO: 移除application 添加@ComponentScan("com.meeruu.Pyramid")
  */
 @Configuration
 @EnableAsync
 @EnableConfigurationProperties({DistributedProperties.class, LocalProperties.class, CacheProperties.class})
 @Conditional(StartCondition.class)
-@ComponentScan("com.meeruu.pyramid")
+@ComponentScan("com.husky.pyramid")
 @Slf4j
 public class GlobalConfig implements ApplicationListener<ApplicationReadyEvent> {
 
@@ -101,7 +100,7 @@ public class GlobalConfig implements ApplicationListener<ApplicationReadyEvent> 
 	public void onApplicationEvent(ApplicationReadyEvent event) {
 		log.info("******************************************");
 		log.info("     PYRAMID缓存开启");
-		log.info("     redis默认过期秒数-{}", distributedProperties.getDefaultRedisExpiration());
+		log.info("     redis默认过期秒数-{}", distributedProperties.getExpiration());
 		log.info("     缓存有效秒数-{}", distributedProperties.getCacheExpiration());
 		log.info("     缓存刷新间隔秒数-{}", localProperties.getCacheSeconds());
 		log.info("     本地缓存初始容量-{}", localProperties.getCapacity());

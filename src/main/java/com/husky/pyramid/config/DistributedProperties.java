@@ -33,14 +33,9 @@ public class DistributedProperties {
 
 	/**
 	 * 全局默认缓存失效时间
-	 */
-	private long expiration = 60;
-
-	/**
-	 * redis缓存有效时间
 	 * <p>timeUnit seconds</p>
 	 */
-	private long defaultRedisExpiration;
+	private long expiration = 60;
 
 	/**
 	 * 缓存有效时间

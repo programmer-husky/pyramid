@@ -43,7 +43,6 @@ public class DistributedCache implements CacheSupport {
 	 */
 	@Override
 	public void singleCache(@NonNull String key, Object object, PyramidModel pyramid) {
-		avalancheSolution(pyramid);
 		if (pyramid.getRedisExpiration() < 0) {
 			redisTemplate.opsForValue().set(key, object);
 		} else {
@@ -61,7 +60,6 @@ public class DistributedCache implements CacheSupport {
 	public void batchCache(@NonNull Map<String, Object> strMap, PyramidModel pyramid) {
 		long redisExpiration = pyramid.getRedisExpiration();
 		if (redisExpiration > 0) {
-			avalancheSolution(pyramid);
 			redisTemplate.executePipelined((RedisCallback<Object>) connection -> {
 				Expiration expiration = Expiration.from(redisExpiration, TimeUnit.SECONDS);
 				strMap.forEach((k, v) -> connection.set(keySerializer.serialize(k), valueSerializer.serialize(v), expiration, RedisStringCommands.SetOption.UPSERT));
