@@ -2,7 +2,6 @@ package com.husky.pyramid;
 
 import com.alibaba.fastjson.JSON;
 import com.husky.pyramid.test.A;
-import com.husky.pyramid.test.B;
 import com.husky.pyramid.test.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
