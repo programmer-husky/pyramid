@@ -5,7 +5,7 @@ import java.util.concurrent.Semaphore;
 /**
  * 信号量工具
  *
- * @author dengweichang
+ * @author programmer_husky
  */
 public class SemaphoreUtil {
 

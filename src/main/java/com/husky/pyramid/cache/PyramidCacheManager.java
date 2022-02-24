@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
  * 		{@link CacheSupport} 中只有各类缓存本身的操作封装
  * 		包含雪崩、穿透解决能力在此处实现
  * </p>
- * @author dengweichang
+ * @author programmer_husky
  */
 @SuppressWarnings({"unchecked", "unused"})
 @Slf4j

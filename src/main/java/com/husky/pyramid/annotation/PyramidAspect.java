@@ -26,7 +26,7 @@ import java.util.Collection;
 
 /**
  * @see Pyramid 切面
- * @author dengweichang
+ * @author programmer_husky
  */
 @Slf4j
 @Component

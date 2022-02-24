@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * 本地缓存配置
- * @author dengweichang
+ * @author programmer_husky
  */
 @ConfigurationProperties(prefix = "pyramid.local")
 @Data

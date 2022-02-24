@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 
 /**
  * 二级缓存注解
- * @author dengweichang
+ * @author programmer_husky
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

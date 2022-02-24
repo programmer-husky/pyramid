@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * redis chanel message publish
- * @author dengweichang
+ * @author programmer_husky
  */
 @Slf4j
 @Component

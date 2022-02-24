@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 本地缓存
  * <p>基于coffee</p>
- * @author dengweichang
+ * @author programmer_husky
  */
 public class LocalCache implements CacheSupport {
 

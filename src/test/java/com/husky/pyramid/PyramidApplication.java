@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 /**
  * 二级缓存组件
- * @author dengweichang
+ * @author programmer_husky
  */
 @SpringBootApplication
 @ComponentScan(basePackageClasses = GlobalConfig.class)

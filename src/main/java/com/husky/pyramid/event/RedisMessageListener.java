@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 
 /**
  * redis消息监听器
- * @author dengweichang
+ * @author programmer_husky
  */
 @Component
 @Slf4j

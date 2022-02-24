@@ -14,7 +14,7 @@ spring:
 pyramid:
   enable: true
   distributed-enable: true
-  node: dengweichang
+  node: programmer_husky
   local:
     enable: false
     cache-seconds: 1

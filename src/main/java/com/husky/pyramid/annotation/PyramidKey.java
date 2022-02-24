@@ -4,7 +4,7 @@ import java.lang.annotation.*;
 
 /**
  * 对象中的缓存标记
- * @author dengweichang
+ * @author programmer_husky
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

@@ -5,7 +5,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 
 /**
  * 缓存属性值对象
- * @author dengweichang
+ * @author programmer_husky
  */
 @Data
 public class PyramidModel {

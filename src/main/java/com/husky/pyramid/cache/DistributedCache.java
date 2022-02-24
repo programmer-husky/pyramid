@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 分布式缓存
  * <p>基于redis
- * @author dengweichang
+ * @author programmer_husky
  */
 @Slf4j
 public class DistributedCache implements CacheSupport {

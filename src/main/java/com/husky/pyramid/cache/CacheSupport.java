@@ -10,7 +10,7 @@ import java.util.Set;
 
 /**
  * 缓存行为接口
- * @author dengweichang
+ * @author programmer_husky
  */
 @SuppressWarnings("unused")
 public interface CacheSupport {

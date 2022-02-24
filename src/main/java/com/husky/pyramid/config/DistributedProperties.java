@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * 二级缓存配置信息
- * @author dengweichang
+ * @author programmer_husky
  */
 @ConfigurationProperties(prefix = "pyramid")
 @Data

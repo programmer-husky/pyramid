@@ -23,7 +23,7 @@ import javax.annotation.Resource;
 
 /**
  * Pyramid global config
- * @author dengweichang
+ * @author programmer_husky
  */
 @Configuration
 @EnableAsync

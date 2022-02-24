@@ -4,7 +4,7 @@ import lombok.Getter;
 
 /**
  * redis通道类型枚举
- * @author dengweichang
+ * @author programmer_husky
  */
 public enum  ChannelTypeEnum {
 

@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * redis锁
- * @author dengweichang
+ * @author programmer_husky
  */
 @Slf4j
 public class RedisLock {

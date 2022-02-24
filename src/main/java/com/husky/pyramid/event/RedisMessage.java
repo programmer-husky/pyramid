@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * redis同步所用消息
- * @author dengweichang
+ * @author programmer_husky
  */
 @Data
 public class RedisMessage implements Serializable {

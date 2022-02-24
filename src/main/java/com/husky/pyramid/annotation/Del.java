@@ -4,7 +4,7 @@ import java.lang.annotation.*;
 
 /**
  * 删除缓存注解
- * @author dengweichang
+ * @author programmer_husky
  */
 @Documented
 @Target(ElementType.METHOD)

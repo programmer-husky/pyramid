@@ -9,7 +9,7 @@ import java.util.function.Function;
 
 /**
  * 缓存管理接口
- * @author dengweichang
+ * @author programmer_husky
  */
 public interface CacheManager {
 

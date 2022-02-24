@@ -11,7 +11,7 @@ import java.util.function.Function;
  * 数据分流工具
  * @param <T>
  *
- * @author dengweichang
+ * @author programmer_husky
  * TODO: 并行替换为 {@link java.util.concurrent.ForkJoinPool} 实现
  */
 @Data

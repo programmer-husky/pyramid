@@ -10,7 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * <p>主要用于 guava RateLimiter permitsPerSecond < 1 的情形
  * 使用时间 + 可重入锁双重限流
  *
- * @author dengweichang
+ * @author programmer_husky
  */
 @Slf4j
 public class TimeRateLimiter {
